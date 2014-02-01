@@ -99,6 +99,23 @@ from visor.centroides_climas
 order by grupo, tipo
 ;
 
+/*
+  grupo   |                      tipo                      | varones  | mujeres  |  total   | hogares  | viviendas 
+----------+------------------------------------------------+----------+----------+----------+----------+-----------
+ Árido    | Andino Puneño                                  |    18028 |    14241 |    32269 |     7178 |      6423
+ Árido    | de Sierras y Bolsones                          |  1328256 |  1391974 |  2720230 |   742472 |    686357
+ Árido    | Patagónico                                     |   298977 |   291066 |   590043 |   180481 |    169182
+ Árido    | Semiárido                                      |   635491 |   651121 |  1286612 |   391812 |    370657
+ Cálido   | Subtropical sin Estación Seca                  |  1649824 |  1705744 |  3355568 |   921439 |    865333
+ Cálido   | Tropical con Estación Seca                     |   978038 |   978912 |  1956950 |   508153 |    471326
+ Cálido   | Tropical Serrano                               |  1533099 |  1604924 |  3138023 |   796440 |    715224
+ Frío     | Húmedo de la Cordilleras Patagónica y Fueguina |   156370 |   156045 |   312415 |    96869 |     91781
+ Frío     | Magallánico                                    |    91769 |    88508 |   180277 |    54285 |     50638
+ Frío     | Nival                                          |    27853 |    26939 |    54792 |    16806 |     15883
+ Templado | de Transición                                  |   168666 |   172846 |   341512 |   102994 |     96089
+ Templado | Oceánico                                       |   419695 |   453808 |   873503 |   294964 |    283145
+ Templado | Pampeano                                       | 11545034 | 12342846 | 23887880 |  7645160 |   7106402
+ Templado | Serrano                                        |   671408 |   713183 |  1384591 |   412156 |    388641
+ Total    |                                                | 19522508 | 20592157 | 40114665 | 12171209 |  11317081
+*/
 
-
-    
