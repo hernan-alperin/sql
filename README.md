@@ -1,4 +1,5 @@
 sql
 ===
 
-sql examples
+sql examples using postGIS
+geometric queries 
