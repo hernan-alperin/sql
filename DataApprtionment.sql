@@ -84,7 +84,20 @@ order by grupo, tipo, link
 ;
 
 
+--- finally the table
 
+select grupo, tipo, 
+  sum(varones) as varones, sum(mujeres) as mujeres, sum(total) as total, 
+  sum(hogares) as hogares, sum(viviendas) as viviendas
+from visor.centroides_climas
+group by grupo, tipo
+union
+select 'Total', '',
+  sum(varones) as varones, sum(mujeres) as mujeres, sum(total) as total, 
+  sum(hogares) as hogares, sum(viviendas) as viviendas
+from visor.centroides_climas
+order by grupo, tipo
+;
 
 
 
