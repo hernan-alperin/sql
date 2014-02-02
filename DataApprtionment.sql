@@ -119,3 +119,64 @@ order by grupo, tipo
  Total    |                                                | 19522508 | 20592157 | 40114665 | 12171209 |  11317081
 */
 
+------------------------------------------------------
+-- sistemas hídricos
+
+create table visor.centroides_sistemas_hidricos_distancias as
+select distinct link, sistema_, st_distance(the_geom,st_centroid),
+  varones, mujeres, total,
+  hogares, viviendas
+from visor.centroides
+join visor.sistemas_hidricos
+on true
+order by link, sistema_, st_distance(the_geom,st_centroid)
+;
+
+create table visor.centroides_sistemas_hidricos as
+select *
+from visor.centroides_sistemas_hidricos_distancias
+natural join (
+  select link, min(st_distance) as st_distance
+  from visor.centroides_sistemas_hidricos_distancias
+  group by link
+  ) as minimos
+order by st_distance desc
+;
+
+create table visor.sistemas_hidricos_DataApportionment as
+select
+  sistema_,
+  sum(varones) as varones, sum(mujeres) as mujeres, sum(total) as total,
+  sum(hogares) as hogares, sum(viviendas) as viviendas
+from visor.centroides_sistemas_hidricos
+group by sistema_
+order by sistema_
+;
+
+select * from visor.centroides_sistemas_hidricos
+where st_distance>0
+order by sistema_, link
+;
+
+/*
+                                 sistema_                                  | varones  | mujeres  |  total   | hogares  | viviendas 
+---------------------------------------------------------------------------+----------+----------+----------+----------+-----------
+ Sistema Mar Chiquita                                                      |  2033528 |  2154052 |  4187580 |  1173456 |   1086073
+ Sistema Pampeano                                                          |   437799 |   447344 |   885143 |   293852 |    284350
+ Sistema Río Colorado                                                      |  1317401 |  1378699 |  2696100 |   753232 |    697022
+ Sistema Río de la Plata y Provincia de Buenos Aires hasta el Río Colorado |  8508206 |  9134411 | 17642617 |  5652208 |   5233174
+ Sistema Río Paraguay                                                      |   820838 |   837259 |  1658097 |   426244 |    386864
+ Sistema Río Paraná                                                        |  4294673 |  4511482 |  8806155 |  2628083 |   2454433
+ Sistema Ríos Patagónicos                                                  |   952421 |   955202 |  1907623 |   587835 |    554914
+ Sistema Río Uruguay                                                       |   508691 |   514362 |  1023053 |   294116 |    280209
+ Sistema Serrano                                                           |   481480 |   493740 |   975220 |   268187 |    253495
+ Sistemas Independientes                                                   |   111386 |   109108 |   220494 |    58274 |     53450
+ Vertiente Pacífica                                                        |    56451 |    56913 |   113364 |    35949 |     33308
+                                                                           | 19522874 | 20592572 | 40115446 | 12171436 |  11317292
+sobran 781 = 40115446+2224+190+17 - 40117096
+debe haber superposición de sistemas (2+ centroides con distancia 0, o con = distancia)
+*/
+
+-----------------------------------------
+
+
