@@ -361,7 +361,30 @@ estan todos
 */
 
 
+------------------------------------------------------------
+--- Relieve
 
+select * from visor.relieve_DataApportionment
+union
+select null, 
+  sum(varones) as varones, sum(mujeres) as mujeres, sum(total) as total,
+  sum(hogares) as hogares, sum(viviendas) as viviendas, null
+from visor.relieve_DataApportionment
+order by orden
+;
+
+/*
+        rango        | varones  | mujeres  |  total   | hogares  | viviendas | orden 
+---------------------+----------+----------+----------+----------+-----------+-------
+ Menos de 200 mts.   | 13873519 | 14719550 | 28593069 |  8929966 |   8311681 |     1
+ De 201 a 500 mts.   |  2393556 |  2482421 |  4875977 |  1421929 |   1330527 |     2
+ De 501 a 1000 mts.  |  1967777 |  2038874 |  4006651 |  1095260 |   1014661 |     3
+ De 1001 a 3000 mts. |  1224800 |  1289437 |  2514237 |   692512 |    631698 |     4
+ Mas de 3001 mts.    |    62856 |    61875 |   124731 |    31542 |     28514 |     5
+                     | 19522508 | 20592157 | 40114665 | 12171209 |  11317081 |      
+
+estan todos
+*/
 
 
 
