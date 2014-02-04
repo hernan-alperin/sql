@@ -345,8 +345,8 @@ where link='540490308' and sistema='SISTEMA RIO URUGUAY'
 or link='067560501' and nombre='CUENCAS DE ARROYOS DEL NE DE BUENOS AIRES'
 ;
 -- recálculo
-drop table visor.sistemas_cuencas;
-create table visor.sistemas_cuencas as
+drop table visor.cuencas_DataApportionment;
+create table visor.cuencas_DataApportionment as
 select
   sistema, nombre,
   sum(varones) as varones, sum(mujeres) as mujeres, sum(total) as total,
