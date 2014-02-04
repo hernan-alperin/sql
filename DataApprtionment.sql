@@ -196,8 +196,24 @@ where link in (select link from visor.centroides_sistemas_hidricos group by link
  540490308 | 0.00969868178751515 | Sistema Río Paraná  |     366 |     415 |   781 |     227 |       211
  540490308 | 0.00969868178751515 | Sistema Río Uruguay |     366 |     415 |   781 |     227 |       211
 (2 filas)
-hay que decidir a que sistema se asigna
+hay que decidir a que sistema se asigna:
+se decide asignarlo al sistema mayor
+
 */
+delete from visor.centroides_sistemas_hidricos
+where link='540490308' and sistema_='Sistema Río Uruguay'
+;
+-- recalcular
+drop table visor.sistemas_hidricos_DataApportionment;
+create table visor.sistemas_hidricos_DataApportionment as
+select
+  sistema_,
+  sum(varones) as varones, sum(mujeres) as mujeres, sum(total) as total,
+  sum(hogares) as hogares, sum(viviendas) as viviendas
+from visor.centroides_sistemas_hidricos
+group by sistema_
+order by sistema_
+;
 
 -----------------------------------------
 -- Cuencas
@@ -320,7 +336,25 @@ sobran 1640
 (4 filas)
 
 se repiten 2 radios con = distancia
+nos quedamos con el de mayor población
+
 */
+
+delete from visor.centroides_cuencas
+where link='540490308' and sistema='SISTEMA RIO URUGUAY'
+or link='067560501' and nombre='CUENCAS DE ARROYOS DEL NE DE BUENOS AIRES'
+;
+-- recálculo
+drop table visor.sistemas_cuencas;
+create table visor.sistemas_cuencas as
+select
+  sistema, nombre,
+  sum(varones) as varones, sum(mujeres) as mujeres, sum(total) as total,
+  sum(hogares) as hogares, sum(viviendas) as viviendas
+from visor.centroides_cuencas
+group by sistema, nombre
+order by sistema, nombre
+;
 
 -------------------------------------------------------------
 --- EcoRegiones
