@@ -37,3 +37,5 @@ select distinct grupo, tipo from centroides_climas order by grupo, tipo;
 (14 filas)
 */
 
+select '0104******0'||link from centroides_climas where grupo='Árido' and tipo='Andino Puneño';
+
